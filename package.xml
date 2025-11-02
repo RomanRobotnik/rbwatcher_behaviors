@@ -5,7 +5,7 @@
   <description>Behavior Tree based action server and reusable nodes for RBWatcher missions.</description>
 
   <maintainer email="support@robotnik.es">Robotnik Automation</maintainer>
-  <license>Apache-2.0</license>
+  <license>BSD</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
   <buildtool_depend>rosidl_default_generators</buildtool_depend>
