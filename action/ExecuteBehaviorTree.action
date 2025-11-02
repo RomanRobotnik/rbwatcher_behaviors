@@ -1,0 +1,15 @@
+# Goal
+geometry_msgs/PoseStamped target_pose
+geometry_msgs/PoseStamped[] target_waypoints
+uint32 waypoint_loops
+uint32 waypoint_start_index
+string tree_xml
+string tree_path
+---
+# Result
+bool success
+string error_message
+---
+# Feedback
+float32 progress
+string feedback_message

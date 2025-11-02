@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>rbwatcher_behaviors</name>
+  <version>0.1.0</version>
+  <description>Behavior Tree based action server and reusable nodes for RBWatcher missions.</description>
+
+  <maintainer email="support@robotnik.es">Robotnik Automation</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
+
+  <build_depend>rclcpp</build_depend>
+  <build_depend>rclcpp_action</build_depend>
+  <build_depend>behaviortree_cpp</build_depend>
+  <build_depend>nav2_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>std_srvs</build_depend>
+  <build_depend>ament_index_cpp</build_depend>
+  <build_depend>ptz_tracker_interfaces</build_depend>
+
+  <exec_depend>rclcpp</exec_depend>
+  <exec_depend>rclcpp_action</exec_depend>
+  <exec_depend>behaviortree_cpp</exec_depend>
+  <exec_depend>nav2_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>std_srvs</exec_depend>
+  <exec_depend>ament_index_cpp</exec_depend>
+  <exec_depend>ptz_tracker_interfaces</exec_depend>
+  <exec_depend>rosidl_default_runtime</exec_depend>
+
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+    <member_of_group>rosidl_interface_packages</member_of_group>
+  </export>
+</package>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<root main_tree_to_execute="MainTree" BTCPP_format="4">
+  <BehaviorTree ID="MainTree">
+    <!-- The tree keeps following waypoints continuously; it starts the PTZ tracker only while a person is detected, 
+    re-evaluating that condition every tick-->
+    <ReactiveSequence name="MissionSequence">
+      <Fallback name="TrackerActivationGuard">
+        <Inverter>
+          <BoolTopicCondition topic="/person_detector/detected" expected_value="true"/>
+        </Inverter>
+        <PTZTrackerAction start="true" action_name="/ptz_tracker/start_tracking"/>
+      </Fallback>
+      <FollowWaypoints
+        waypoints="{target_waypoints}"
+        loops="{waypoint_loops}"
+        start_index="{waypoint_start_index}"
+        action_name="/robot/follow_waypoints"/>
+    </ReactiveSequence>
+  </BehaviorTree>
+</root>
