@@ -1,5 +1,4 @@
 # Goal
-geometry_msgs/PoseStamped target_pose
 geometry_msgs/PoseStamped[] target_waypoints
 uint32 waypoint_loops
 uint32 waypoint_start_index
