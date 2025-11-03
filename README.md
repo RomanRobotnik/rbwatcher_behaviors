@@ -48,8 +48,7 @@ ros2 action send_goal /execute_behavior_tree rbwatcher_behaviors/action/ExecuteB
 ```
 
 Provide your own behavior tree by setting `tree_xml` (inline XML) or `tree_path` (relative to the package share or an absolute path).
-
-The goal interface also accepts `target_waypoints`, `waypoint_loops`, and `waypoint_start_index` so the default tree can drive Nav2's `FollowWaypoints` action. When these fields are omitted, the single `target_pose` is used as a one-waypoint mission.
+The action goal requires at least one entry in `target_waypoints` and optionally accepts `waypoint_loops`, `waypoint_start_index`, inline `tree_xml`, or a `tree_path` pointing to a BT XML file.
 
 ## Custom Tree Nodes
 

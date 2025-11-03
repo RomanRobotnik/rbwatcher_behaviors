@@ -91,7 +91,15 @@ void BehaviorTreeActionServer::execute(const std::shared_ptr<GoalHandle> goal_ha
 
   auto blackboard = BT::Blackboard::create();
   blackboard->set("node", shared_from_this());
-  setInitialBlackboardValues(*goal, blackboard);
+  try {
+    setInitialBlackboardValues(*goal, blackboard);
+  } catch (const std::exception & ex) {
+    result->success = false;
+    result->error_message = ex.what();
+    RCLCPP_ERROR(get_logger(), "Invalid ExecuteBehaviorTree goal: %s", ex.what());
+    goal_handle->abort(result);
+    return;
+  }
 
   // This is now a std::unique_ptr<BT::BehaviorTreeFactory>
   auto factory = createFactory(); 
@@ -232,12 +240,22 @@ void BehaviorTreeActionServer::setInitialBlackboardValues(
   const ExecuteBehaviorTree::Goal & goal,
   BT::Blackboard::Ptr blackboard) const
 {
-  blackboard->set("target_pose", goal.target_pose);
-
   std::vector<geometry_msgs::msg::PoseStamped> waypoints = goal.target_waypoints;
-  if (waypoints.empty() && !goal.target_pose.header.frame_id.empty()) {
-    waypoints.push_back(goal.target_pose);
+  if (waypoints.empty()) {
+    throw std::runtime_error("ExecuteBehaviorTree goal requires at least one target_waypoint");
   }
+
+  for (size_t i = 0; i < waypoints.size(); ++i) {
+    const auto & p = waypoints[i];
+    RCLCPP_INFO(this->get_logger(),
+      "Initial TargetWaypoint[%zu]: frame=%s pos=(%.3f, %.3f, %.3f) orient=(%.3f, %.3f, %.3f, %.3f)",
+      i,
+      p.header.frame_id.c_str(),
+      p.pose.position.x, p.pose.position.y, p.pose.position.z,
+      p.pose.orientation.x, p.pose.orientation.y,
+      p.pose.orientation.z, p.pose.orientation.w);
+  }
+
   blackboard->set("target_waypoints", waypoints);
 
   std::uint32_t loops = goal.waypoint_loops > 0 ? goal.waypoint_loops : 1U;
